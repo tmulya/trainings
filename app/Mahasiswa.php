@@ -12,4 +12,9 @@ class Mahasiswa extends Model
     	'nim',
     	'sex'
     ];
+
+    public function matakuliahs()
+    {
+    	return $this->hasMany('App\Matakuliah');
+    }
 }
