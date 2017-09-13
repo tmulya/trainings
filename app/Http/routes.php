@@ -22,6 +22,9 @@ Route::get('/test/{id}/edit', 'TestController@edit');
 Route::put('/test/{id}', 'TestController@update');
 Route::get('/test/{id}', 'TestController@show');
 Route::delete('/test/{id}', 'TestController@destroy');
+
+Route::resource('user', 'UserController');
+Route::resource('role', 'RoleController');
 Route::resource('/mahasiswa' ,'MahasiswaController');
 Route::resource('/matakuliah', 'MatakuliahController');
 // Route::resource('/test','TestController');
