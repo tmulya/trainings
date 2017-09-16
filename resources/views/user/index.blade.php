@@ -3,8 +3,8 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<a href="{{ route('user.create') }}">Create</a>
-		<table class="table">
+		<a href="{{ route('user.create') }}" class="btn btn-primary">Create</a>
+		<table class="table" id="userTable">
 			<thead>
 				<th>#</th>
 				<th>Name</th>
@@ -27,11 +27,11 @@
 							@endforeach
 						</td>
 						<td>
-							<a href="{{ route('user.edit', $user->id) }}">Edit</a>
+							<a href="{{ route('user.edit', $user->id) }}" class="btn btn-xs btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 							<form action="{{ route('user.destroy', $user->id) }}" method="POST">
 							{{ csrf_field() }}
 							<input name="_method" type="hidden" value="DELETE">
-							<button type="submit">Delete</button>
+							<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
 							</form>
 						</td>
 					</tr>
@@ -40,4 +40,8 @@
 		</table>	
 	</div>
 </div>
+@endsection
+
+@section('scripts')
+	@include('user._js')
 @endsection

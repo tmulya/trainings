@@ -42,14 +42,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required',
-        //     'email' => 'required|unique:users',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|unique:users',
+        ]);
 
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         
         $user = new User();
         $user->name = $request->input('name');
@@ -81,7 +81,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $role = Role::pluck('name','id');
+        // return $user->roles()->pluck('id','id')->toArray();
+        return view('user.edit', compact('user', 'role'));
     }
 
     /**
@@ -93,7 +96,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        if (!empty($request->input('password'))) {
+            $user->password = bcrypt($request->input('password'));
+        }
+        $user->save();
+
+        $user->roles()->sync($request->input('role_id'));
+
+        return redirect('user');
     }
 
     /**
@@ -104,6 +126,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect('user');
     }
 }

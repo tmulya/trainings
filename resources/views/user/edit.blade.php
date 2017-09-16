@@ -12,8 +12,8 @@
     </div>
 @endif
 
-{!! Form::model($user = new \App\User, ['url'=> route('user.store')]) !!}
-	@include('user._form')
+{!! Form::model($user, ['route' => ['user.update', $user->id],'method'=>'PATCH','id'=>'formUser']) !!}
+@include('user._form')
 <br>
 <br>
 <button type="submit" class="btn btn-primary">Save</button>

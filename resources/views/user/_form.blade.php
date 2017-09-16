@@ -17,7 +17,7 @@
 
 		<div class="form-group">
 			{!! Form::label('role_id', 'Role') !!}<br>
-			{!! Form::select('role_id[]', $role, null, ['class'=>'form-control', 'multiple']) !!}	
+			{!! Form::select('role_id[]', $role,$user->roles->lists('id')->toArray(), ['class'=>'form-control', 'multiple']) !!}	
 		</div>
 	</div>
 </div>
